@@ -58,7 +58,7 @@ app.use((error, req, res, next) => {
 })
 
 // Start the app
-const port = 5000;
+const port = process.env.PORT || 8000;
 
 const server = http.createServer(app)
 // server.listen(port)
