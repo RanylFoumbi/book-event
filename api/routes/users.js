@@ -8,6 +8,7 @@ const User = require('../model/user')
 const generator = require('../utilities/generate-pdf')
 
 router.post('/book-event', (req, res, next) => {
+    console.log({enterENDEPOINT: "ENENENENETETETETET"})
     User.findOne({email: req.body.email})
     .exec()
     .then(async user => {
@@ -30,8 +31,10 @@ router.post('/book-event', (req, res, next) => {
             handicap: req.body.handicap,
             studyProgram: req.body.studyProgram,
         });
-
+        console.log({beforePdf: "ARRARARARARRARA"})
         const base64File = await generator.generatPDF({ data: req.body})
+        console.log({afterPDF: base64File})
+        console.log({data: req.body})
 
         user.tiket = base64File
          
