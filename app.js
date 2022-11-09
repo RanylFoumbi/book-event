@@ -38,6 +38,11 @@ app.use((req, res, next) => {
 // Set app Routes
 app.use('/api/user', userRoutes)
 
+app.get('/',(req, res, next)=>{
+  res.status(200).json({
+    message: "Welcome to book-event API"
+  })
+})
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;
