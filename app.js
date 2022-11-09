@@ -62,7 +62,7 @@ app.use((error, req, res, next) => {
 const port = process.env.PORT || 5000;
 
 const server = http.createServer(app)
-server.listen(port)
-console.log("server started on "+ port)
+// server.listen(port)
+console.log("server is starteing on "+ port)
 
-module.exports = app;
+module.exports = server.listen(port);;
