@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon npm start",
-    "test": "npm test"
+    "start": "nodemon app.js"
   },
   "author": "ranylfoumbi@gmail.com",
   "license": "ISC",
