@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const userRoutes = require('./api/routes/users')
 const config = require("./api/config/database");
 const bodyParser = require("body-parser");
-const fs = require("fs");
 const app = express();
 
 // Connect to db
