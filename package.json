@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon yarn start",
-    "test": "yarn test"
+    "start": "nodemon npm start",
+    "test": "npm test"
   },
   "author": "ranylfoumbi@gmail.com",
   "license": "ISC",
