@@ -1,5 +1,6 @@
 require("dotenv").config();
 const http = require("http");
+const cors = require('cors');
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require('./api/routes/users')
@@ -19,7 +20,7 @@ db.once("open", function () {
 });
 
 
-
+app.use(cors())
 //allow the app to use json format
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())

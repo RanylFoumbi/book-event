@@ -7,8 +7,9 @@ const sendMailGmail = require('../mailing/send_mail')
 const User = require('../model/user')
 const generator = require('../utilities/generate-pdf')
 
-router.post('/book-event', (req, res, next) => {
-    console.log({enterENDEPOINT: "ENENENENETETETETET"})
+router.post('/book-event', (req, res, next) => 
+{
+    console.log({body: tJSON.parse(req.body)})
     User.findOne({email: req.body.email})
     .exec()
     .then(async user => {
