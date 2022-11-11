@@ -1,11 +1,11 @@
 require("dotenv").config();
 const http = require("http");
-const cors = require('cors');
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require('./api/routes/users')
 const config = require("./api/config/database");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const app = express();
 
 // Connect to db
@@ -19,21 +19,23 @@ db.once("open", function () {
   console.log("Connected to mongodb");
 });
 
+app.use(morgan('dev'))
 
-app.use(cors())
 //allow the app to use json format
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+const server = http.createServer(app);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-Type, Accept, Content-Type, Authorization')
+  if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
+      return res.status(200).json({})
   }
   next();
-});
-
+})
 
 // Set app Routes
 app.use('/api/user', userRoutes)
@@ -43,11 +45,6 @@ app.get('/',(req, res, next)=>{
     message: "Welcome to book-event API"
   })
 })
-// app.use((req, res, next) => {
-//     const error = new Error('Not Found');
-//     error.status = 404;
-//     next(error)
-// })
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500)
@@ -59,10 +56,8 @@ app.use((error, req, res, next) => {
 })
 
 // Start the app
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 
-const server = http.createServer(app)
-// server.listen(port)
-console.log("server is starteing on "+ port)
-
-module.exports = server.listen(port);;
+server.listen(port, function() {
+  console.log(`Server started on ${port}`)
+})
