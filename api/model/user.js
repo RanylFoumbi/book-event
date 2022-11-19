@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    bookId:{ 
+    seatNumber:{ 
       type: String,
       required : true
     },
@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
       required : true
     },
     filiere: {
+        type: String,
+        required : true
+    },
+    country: {
         type: String,
         required : true
     },
@@ -39,14 +43,20 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     handicap: {
-        type: Boolean,
+        type: String,
         required : true
     },
     studyProgram: {
         type: String,
         required : true
     },
+    actualStudyLevel: {
+        type: String
+    },
     tiket: {
+        type: String
+    },
+    expectations: {
         type: String
     },
     updatedAt: { 

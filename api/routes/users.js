@@ -5,8 +5,6 @@ const mongoose = require('mongoose')
 
 const sendMailGmail = require('../mailing/send_mail')
 const User = require('../model/user')
-const generator = require('../utilities/generate-pdf')
-
 router.post('/book-event', (req, res, next) => 
 {
     console.log({body: req.body})
@@ -15,49 +13,68 @@ router.post('/book-event', (req, res, next) =>
     .then(async user => {
         if (user) {
             return res.status(409).json({
-                message: 'Email Exist'
+                message: 'EMAIL_EXIST'
             })
         }else {
+            const char = mongoose.Types.ObjectId().valueOf()
+            console.log(char)
+            console.log(typeof(char))
           const user = new User({
             _id: mongoose.Types.ObjectId(),
-            bookId: mongoose.Types.ObjectId(),
-            civility: req.body.civility,
-            lastName: req.body.lastName,
-            firstName: req.body.firstName,
-            filiere: req.body.filiere,
             town: req.body.town,
             phone: req.body.phone,
             email: req.body.email,
-            university: req.body.university,
+            filiere: req.body.filiere,
+            country: req.body.country,
+            civility: req.body.civility,
+            lastName: req.body.lastName,
             handicap: req.body.handicap,
+            firstName: req.body.firstName,
+            university: req.body.university,
+            seatNumber: char.substring(0,4).toUpperCase(),
             studyProgram: req.body.studyProgram,
+            expectations: req.body.expectations,
+            actualStudyLevel: req.body.actualStudyLevel,
         });
-        console.log({beforePdf: "ARRARARARARRARA"})
-        const base64File = await generator.generatPDF({ data: req.body})
-        console.log({afterPDF: base64File})
-        console.log({data: req.body})
-
-        user.tiket = base64File
          
         user.save()
         .then(async user => {
-            sendMailGmail("CONFERENCE DJEUGA PALACE", user.email, user.lastName+' '+ user.firstName, base64File, (error, info) => {
-                if (error) {
-                    return res.status(500).json({
-                        "error": error
-                    })
-                }
-                console.log('Message sent: %s', info.messageId);
-                    return res.status(200).json({
-                        mail: "Email sent",
-                    })
-            });
+            try {
+                console.log({neWuser: user})
+                    sendMailGmail( user.email, user.lastName+' '+ user.firstName, (error, info) => {
+                        if (error) {
+                            return res.status(500).json({
+                                "error": error
+                            })
+                        }
+                        console.log('Message sent: %s', info.messageId);
+                            return res.status(200).json({
+                                message: "EMAIL_SENT",
+                            })
+                    });
+            } catch (error) {
+                return res.status(500).json({
+                    "error": error
+                })
+            }
+            
         }).catch(err => {
             console.log(err)
             res.status(500).json({ error: err })
         })
         }
     })
+})
+
+router.get('/all',async (req,res,next)=>{
+   try {
+        const users = await User.find({});
+        return res.status(200).json({data: users });
+   } catch (error) {
+        return res.status(500).json({
+            error
+        })
+   }
 })
 
 

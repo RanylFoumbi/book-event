@@ -42,7 +42,7 @@ app.use('/api/user', userRoutes)
 
 app.get('/',(req, res, next)=>{
   res.status(200).json({
-    message: "Welcome to book-event API"
+    message: "Welcome to kitravel API"
   })
 })
 
