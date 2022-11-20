@@ -1,11 +1,13 @@
+// App initialization
 require("dotenv").config();
-const http = require("http");
 const express = require("express");
-const mongoose = require("mongoose");
-const userRoutes = require('./api/routes/users')
-const config = require("./api/config/database");
 const bodyParser = require("body-parser");
+const appRoutes = require("./api/routes");
+const mongoose = require("mongoose");
 const morgan = require("morgan");
+const http = require('http')
+const config = require("./api/config/database");
+const { FILE_SIZE_LIMIT } = require("./api/utils/utils");
 const app = express();
 
 // Connect to db
@@ -21,43 +23,31 @@ db.once("open", function () {
 
 app.use(morgan('dev'))
 
-//allow the app to use json format
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-const server = http.createServer(app);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-Type, Accept, Content-Type, Authorization')
-  if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
-      return res.status(200).json({})
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-Type, Accept, Content-Type, X-Auth-Token"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
   }
   next();
-})
+});
+
+//allow the app to use json format
+app.use(bodyParser.json({ limit: FILE_SIZE_LIMIT }));
+app.use(bodyParser.urlencoded({ limit: FILE_SIZE_LIMIT, extended: true }));
+app.use(bodyParser.text({ limit: FILE_SIZE_LIMIT, extended: true }));
 
 // Set app Routes
-app.use('/api/user', userRoutes)
+app.use("/api/v1", appRoutes());
 
-app.get('/',(req, res, next)=>{
-  res.status(200).json({
-    message: "Welcome to kitravel API"
-  })
-})
-
-app.use((error, req, res, next) => {
-    res.status(error.status || 500)
-    res.json({
-        error: {
-            message: error.message
-        }
-    })
-})
-
-// Start the app
-const port = process.env.PORT || 5000;
-
-server.listen(port, function() {
-  console.log(`Server started on ${port}`)
-})
+/*server runtime port */
+const port = process.env.PORT || 5000
+const server = http.createServer(app);
+server.listen(port,()=>{
+  console.log(`server started on ${port}`)
+});

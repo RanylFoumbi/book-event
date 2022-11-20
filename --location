@@ -1,0 +1,91 @@
+*   Trying 172.67.200.153...
+* TCP_NODELAY set
+* Connected to api.domainsdb.info (172.67.200.153) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+{ [1 bytes data]
+* TLSv1.3 (IN), TLS handshake, Unknown (8):
+{ [19 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [2223 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [79 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [52 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Client hello (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Certificate Status (22):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [52 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: C=US; ST=CA; L=San Francisco; O=Cloudflare, Inc.; CN=sni.cloudflaressl.com
+*  start date: Jul 17 00:00:00 2020 GMT
+*  expire date: Jul 17 12:00:00 2021 GMT
+*  subjectAltName: host "api.domainsdb.info" matched cert's "*.domainsdb.info"
+*  issuer: C=US; O=Cloudflare, Inc.; CN=Cloudflare Inc ECC CA-3
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+} [1 bytes data]
+* Using Stream ID: 1 (easy handle 0x561d8177c580)
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+} [1 bytes data]
+> GET /v1/domains/search?limit=100&domain=nasa.xx HTTP/2
+> Host: api.domainsdb.info
+> User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6
+> Accept: */*
+> Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3
+> Accept-Language: en-US,en;q=0.8
+> 
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+{ [1 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [230 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [230 bytes data]
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+{ [1 bytes data]
+* Connection state changed (MAX_CONCURRENT_STREAMS updated)!
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+} [1 bytes data]
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+{ [1 bytes data]
+< HTTP/2 404 
+< date: Mon, 01 Feb 2021 16:31:54 GMT
+< content-type: application/json
+< content-length: 175
+< set-cookie: __cfduid=d9c2b15fbdfbc67d8052de4f0751381a81612197113; expires=Wed, 03-Mar-21 16:31:53 GMT; path=/; domain=.domainsdb.info; HttpOnly; SameSite=Lax
+< cf-cache-status: DYNAMIC
+< cf-request-id: 080008c7040000cbc8f09d3000000001
+< expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+< report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report?s=X7UMUhkHEORUuqLeNcghpbwR29KUBlRUuKCNHi5blVgV327%2BRMlRGKL6%2B5YAVAkpNiTDk05sLQsFdyOCPmPjBTLGBDKa3qksvHZ3K5lk%2Bg%2B4Bdc%3D"}],"group":"cf-nel","max_age":604800}
+< nel: {"max_age":604800,"report_to":"cf-nel"}
+< server: cloudflare
+< cf-ray: 61ad10b80e4dcbc8-VIE
+< 
+{ [175 bytes data]
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+{ [1 bytes data]
+* Connection #0 to host api.domainsdb.info left intact
