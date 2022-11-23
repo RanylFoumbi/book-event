@@ -1,4 +1,4 @@
-module.exports = function ( email, name, ticketInBase64, cb) {
+module.exports = function ( email, name, cb) {
     const nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
