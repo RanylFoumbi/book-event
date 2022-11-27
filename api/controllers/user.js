@@ -1,9 +1,7 @@
-
 const mongoose = require('mongoose')
 const sendMailGmail = require('../mailing/send_mail')
 const User = require('../model/user');
 const updateTicket = require('../utils/writeOnpdf');
-
 
 /**
  * 
@@ -58,7 +56,6 @@ const bookSeat =(req, res)=>{
                 }else{
                     console.log('Message sent: %s', info.messageId);
                     return res.status(200).json({
-                        finalBase64File,
                         mail: "Email sent",
                     })
                 }
