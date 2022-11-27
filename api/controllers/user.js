@@ -45,10 +45,10 @@ const bookSeat =(req, res)=>{
          newUser.save()
          .then(async user => {
             console.log({newUser})
-            const gender = civility == 'M' ? 'M.' : 'Mme'
+            const gender = civility == 'H' ? 'M.' : 'Mme'
             const finalBase64File = await updateTicket(`${gender} ${lastName.toUpperCase()}`);
             console.log({finalBase64File})
-            sendMailGmail( email, lastName+' '+ firstName, finalBase64File, (error, info) => {
+            sendMailGmail( email, `${gender} ${lastName.toUpperCase()} ${firstName}`, finalBase64File, (error, info) => {
                 if (error) {
                     return res.status(500).json({
                         "error": error

@@ -20,7 +20,7 @@ module.exports = function ( email, name, finalBase64File, cb) {
         <div style="width: 70%;display: block;margin-left: auto;margin-right: auto;padding:
             4rem;background-color: white;height: 100%;position: relative;">
             <div style="min-height: 5rem">
-                <h2 style="font-family: 'Roboto', Helvetica, sans-serif;">Hello Mr., Mme. ${name}</h2>
+                <h2 style="font-family: 'Roboto', Helvetica, sans-serif;">Hello ${name}</h2>
                 <p style="font-family: 'Roboto', Helvetica, sans-serif">Féllicitation!! Vous faites désormais partie de nos invités d'honneur. </p>
                 <p style="font-family: 'Roboto', Helvetica, sans-serif">
                     Vous trouverez ci-joint votre passe pour la conférence 👇👇👇
