@@ -10,7 +10,7 @@ const updateTicket = async(name) =>{
         const pdfDoc = await PDFDocument.load(uint8Array)
         // console.log({pdfDoc})
         // Embed the Helvetica font
-        const helveticaFont = await pdfDoc.embedFont(StandardFonts. TimesRomanBold)
+        const helveticaFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
     
         // Get the first page of the document
         const page = pdfDoc.getPage(0)
