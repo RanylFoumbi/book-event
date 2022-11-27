@@ -1,14 +1,16 @@
 
 const mongoose = require('mongoose')
 const sendMailGmail = require('../mailing/send_mail')
-const User = require('../model/user')
+const User = require('../model/user');
+const updateTicket = require('../utils/writeOnpdf');
+
 
 /**
  * 
  * @param {*} req 
  * @param {*} res 
  */
-const bookSeat = async(req, res)=>{
+const bookSeat =(req, res)=>{
      const { town, phone, email, filiere, country, civility, lastName, handicap, firstName, university, studyProgram, expectations,
           actualStudyLevel} = req.body;
           
@@ -24,7 +26,7 @@ const bookSeat = async(req, res)=>{
              const char = mongoose.Types.ObjectId().valueOf()
              console.log(char)
              console.log(typeof(char))
-             const user = new User({
+             const newUser = new User({
                _id: mongoose.Types.ObjectId(),
                town: town,
                phone: phone,
@@ -42,30 +44,28 @@ const bookSeat = async(req, res)=>{
                actualStudyLevel: actualStudyLevel,
            });
           
-         user.save()
+         newUser.save()
          .then(async user => {
-             try {
-                 console.log({neWuser: user})
-                     sendMailGmail( email, lastName+' '+ firstName, (error, info) => {
-                         if (error) {
-                             return res.status(500).json({
-                                 "error": error
-                             })
-                         }
-                         console.log('Message sent: %s', info.messageId);
-                         return res.status(200).json({
-                              message: "EMAIL_SENT",
-                         })
-                     });
-             } catch (error) {
-                 return res.status(500).json({
-                     "error": error
-                 })
-             }
-             
+            console.log({newUser})
+            const gender = civility == 'M' ? 'M.' : 'Mme'
+            const finalBase64File = await updateTicket(`${gender} ${lastName.toUpperCase()}`);
+            console.log({finalBase64File})
+            sendMailGmail( email, lastName+' '+ firstName, finalBase64File, (error, info) => {
+                if (error) {
+                    return res.status(500).json({
+                        "error": error
+                    })
+                }else{
+                    console.log('Message sent: %s', info.messageId);
+                    return res.status(200).json({
+                        finalBase64File,
+                        mail: "Email sent",
+                    })
+                }
+            });
          }).catch(err => {
              console.log(err)
-             res.status(500).json({ error: err })
+            return res.status(500).json({ error: err })
          })
          }
      })

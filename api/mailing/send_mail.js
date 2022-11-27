@@ -1,4 +1,4 @@
-module.exports = function ( email, name, ticketInBase64, cb) {
+module.exports = function ( email, name, finalBase64File, cb) {
     const nodemailer = require('nodemailer');
 
     let transporter = nodemailer.createTransport({
@@ -44,7 +44,7 @@ module.exports = function ( email, name, ticketInBase64, cb) {
         attachments:[
             {   
                 filename: 'pass_conférence.pdf',
-                path: 'api/assets/pdf/pass_conference.pdf'
+                path: `data:text/plain;base64,${finalBase64File}`
             },
         ]
     };
